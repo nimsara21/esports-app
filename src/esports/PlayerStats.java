@@ -19,6 +19,14 @@ public class PlayerStats {
         this.wins = 0;
     }
 
+    public PlayerStats(PlayerStats other) {
+        this.kills = other.kills;
+        this.deaths = other.deaths;
+        this.assists = other.assists;
+        this.matchesPlayed = other.matchesPlayed;
+        this.wins = other.wins;
+    }
+
     public int getKills() {
         return kills;
     }
@@ -39,7 +47,11 @@ public class PlayerStats {
         return wins;
     }
 
-    void recordMatch(int kills, int deaths, int assists, boolean win) {
+    public int getLosses() { return matchesPlayed - wins; }
+
+
+
+    public void recordMatch(int kills, int deaths, int assists, boolean win) {
         this.kills += kills;
         this.deaths += deaths;
         this.assists += assists;
@@ -49,11 +61,11 @@ public class PlayerStats {
         matchesPlayed++;
     }
 
-    double getKDA() {
+    public double getKDA() {
         return (kills + assists) / Math.max(deaths, 1.0);
     }
 
-    double getWinRate() {
+    public double getWinRate() {
         if (matchesPlayed == 0) return 0.0;
         return (double) wins / matchesPlayed * 100;  // also — should be a percentage (0–100)
     }
